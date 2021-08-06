@@ -2,7 +2,7 @@
 //
 // Copyright(c) 2020 Jordan Peck (jordan.me2@gmail.com)
 // Copyright(c) 2020 Contributors
-// Copyright(c) 2020 EinBurgbauer
+// Copyright(c) 2020 EinScott
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files(the "Software"), to deal
@@ -47,7 +47,7 @@
 //
 // VERSION: 1.0.1
 // https://github.com/Auburn/FastNoise
-// https://github.com/EinBurgbauer/FastNoise_Beef
+// https://github.com/EinScott/FastNoise_Beef
 // ported at
 // - https://github.com/Auburn/FastNoise/blob/0cedc661ac299ba002f92e20851035a1d78869c0/CSharp/FastNoiseLite.cs
 // - https://github.com/Auburn/FastNoise/blob/0cedc661ac299ba002f92e20851035a1d78869c0/C/FastNoiseLite.h
