@@ -998,8 +998,8 @@ namespace FastNoiseLite
 	        float x0 = (float)(xi - t);
 	        float y0 = (float)(yi - t);
 
-	        i *= PrimeX;
-	        j *= PrimeY;
+	        i &*= PrimeX;
+	        j &*= PrimeY;
 
 	        float n0, n1, n2;
 
@@ -1016,7 +1016,7 @@ namespace FastNoiseLite
 	        {
 	            float x2 = x0 + (2 * (float)G2 - 1);
 	            float y2 = y0 + (2 * (float)G2 - 1);
-	            n2 = (c * c) * (c * c) * GradCoord(seed, i + PrimeX, j + PrimeY, x2, y2);
+	            n2 = (c * c) * (c * c) * GradCoord(seed, i &+ PrimeX, j &+ PrimeY, x2, y2);
 	        }
 
 	        if (y0 > x0)
@@ -1027,7 +1027,7 @@ namespace FastNoiseLite
 	            if (b <= 0) n1 = 0;
 	            else
 	            {
-	                n1 = (b * b) * (b * b) * GradCoord(seed, i, j + PrimeY, x1, y1);
+	                n1 = (b * b) * (b * b) * GradCoord(seed, i, j &+ PrimeY, x1, y1);
 	            }
 	        }
 	        else
@@ -1038,7 +1038,7 @@ namespace FastNoiseLite
 	            if (b <= 0) n1 = 0;
 	            else
 	            {
-	                n1 = (b * b) * (b * b) * GradCoord(seed, i + PrimeX, j, x1, y1);
+	                n1 = (b * b) * (b * b) * GradCoord(seed, i &+ PrimeX, j, x1, y1);
 	            }
 	        }
 
@@ -1478,8 +1478,8 @@ namespace FastNoiseLite
 
 	        float cellularJitter = 0.43701595f * mCellularJitterModifier;
 
-	        int32 xPrimed = (xr - 1) * PrimeX;
-	        int32 yPrimedBase = (yr - 1) * PrimeY;
+	        int32 xPrimed = (xr - 1) &* PrimeX;
+	        int32 yPrimedBase = (yr - 1) &* PrimeY;
 
 	        switch (mCellularDistanceFunction)
 	        {
@@ -1504,9 +1504,9 @@ namespace FastNoiseLite
                             distance0 = newDistance;
                             closestHash = hash;
                         }
-                        yPrimed += PrimeY;
+                        yPrimed &+= PrimeY;
                     }
-                    xPrimed += PrimeX;
+                    xPrimed &+= PrimeX;
                 }
             case .Hybrid:
                 for (int32 xi = xr - 1; xi <= xr + 1; xi++)
@@ -1529,9 +1529,9 @@ namespace FastNoiseLite
                             distance0 = newDistance;
                             closestHash = hash;
                         }
-                        yPrimed += PrimeY;
+                        yPrimed &+= PrimeY;
                     }
-                    xPrimed += PrimeX;
+                    xPrimed &+= PrimeX;
                 }
 			default: // , .Euclidean, .EuclideanSq
 			    for (int32 xi = xr - 1; xi <= xr + 1; xi++)
@@ -1554,9 +1554,9 @@ namespace FastNoiseLite
 			                distance0 = newDistance;
 			                closestHash = hash;
 			            }
-			            yPrimed += PrimeY;
+			            yPrimed &+= PrimeY;
 			        }
-			        xPrimed += PrimeX;
+			        xPrimed &+= PrimeX;
 			    }
 	        }
 
@@ -1603,9 +1603,9 @@ namespace FastNoiseLite
 
 	        float cellularJitter = 0.39614353f * mCellularJitterModifier;
 
-	        int32 xPrimed = (xr - 1) * PrimeX;
-	        int32 yPrimedBase = (yr - 1) * PrimeY;
-	        int32 zPrimedBase = (zr - 1) * PrimeZ;
+	        int32 xPrimed = (xr - 1) &* PrimeX;
+	        int32 yPrimedBase = (yr - 1) &* PrimeY;
+	        int32 zPrimedBase = (zr - 1) &* PrimeZ;
 
 	        switch (mCellularDistanceFunction)
 	        {
@@ -1635,11 +1635,11 @@ namespace FastNoiseLite
                                 distance0 = newDistance;
                                 closestHash = hash;
                             }
-                            zPrimed += PrimeZ;
+                            zPrimed &+= PrimeZ;
                         }
-                        yPrimed += PrimeY;
+                        yPrimed &+= PrimeY;
                     }
-                    xPrimed += PrimeX;
+                    xPrimed &+= PrimeX;
                 }
             case .Manhattan:
                 for (int32 xi = xr - 1; xi <= xr + 1; xi++)
@@ -1667,11 +1667,11 @@ namespace FastNoiseLite
                                 distance0 = newDistance;
                                 closestHash = hash;
                             }
-                            zPrimed += PrimeZ;
+                            zPrimed &+= PrimeZ;
                         }
-                        yPrimed += PrimeY;
+                        yPrimed &+= PrimeY;
                     }
-                    xPrimed += PrimeX;
+                    xPrimed &+= PrimeX;
                 }
             case .Hybrid:
                 for (int32 xi = xr - 1; xi <= xr + 1; xi++)
@@ -1699,11 +1699,11 @@ namespace FastNoiseLite
                                 distance0 = newDistance;
                                 closestHash = hash;
                             }
-                            zPrimed += PrimeZ;
+                            zPrimed &+= PrimeZ;
                         }
-                        yPrimed += PrimeY;
+                        yPrimed &+= PrimeY;
                     }
-                    xPrimed += PrimeX;
+                    xPrimed &+= PrimeX;
                 }
             default:
 	        }
@@ -1755,10 +1755,10 @@ namespace FastNoiseLite
 	        float xs = InterpQuintic(xd0);
 	        float ys = InterpQuintic(yd0);
 
-	        x0 *= PrimeX;
-	        y0 *= PrimeY;
-	        int32 x1 = x0 + PrimeX;
-	        int32 y1 = y0 + PrimeY;
+	        x0 &*= PrimeX;
+	        y0 &*= PrimeY;
+	        int32 x1 = x0 &+ PrimeX;
+	        int32 y1 = y0 &+ PrimeY;
 
 	        float xf0 = Lerp(GradCoord(seed, x0, y0, xd0, yd0), GradCoord(seed, x1, y0, xd1, yd0), xs);
 	        float xf1 = Lerp(GradCoord(seed, x0, y1, xd0, yd1), GradCoord(seed, x1, y1, xd1, yd1), xs);
@@ -1783,12 +1783,12 @@ namespace FastNoiseLite
 	        float ys = InterpQuintic(yd0);
 	        float zs = InterpQuintic(zd0);
 
-	        x0 *= PrimeX;
-	        y0 *= PrimeY;
-	        z0 *= PrimeZ;
-	        int32 x1 = x0 + PrimeX;
-	        int32 y1 = y0 + PrimeY;
-	        int32 z1 = z0 + PrimeZ;
+	        x0 &*= PrimeX;
+	        y0 &*= PrimeY;
+	        z0 &*= PrimeZ;
+	        int32 x1 = x0 &+ PrimeX;
+	        int32 y1 = y0 &+ PrimeY;
+	        int32 z1 = z0 &+ PrimeZ;
 
 	        float xf00 = Lerp(GradCoord(seed, x0, y0, z0, xd0, yd0, zd0), GradCoord(seed, x1, y0, z0, xd1, yd0, zd0), xs);
 	        float xf10 = Lerp(GradCoord(seed, x0, y1, z0, xd0, yd1, zd0), GradCoord(seed, x1, y1, z0, xd1, yd1, zd0), xs);
@@ -1812,14 +1812,14 @@ namespace FastNoiseLite
 	        float xs = (float)(x - x1);
 	        float ys = (float)(y - y1);
 
-	        x1 *= PrimeX;
-	        y1 *= PrimeY;
-	        int32 x0 = x1 - PrimeX;
-	        int32 y0 = y1 - PrimeY;
-	        int32 x2 = x1 + PrimeX;
-	        int32 y2 = y1 + PrimeY;
-	        int32 x3 = x1 + (int32)((int64)PrimeX << 1);
-	        int32 y3 = y1 + (int32)((int64)PrimeY << 1);
+	        x1 &*= PrimeX;
+	        y1 &*= PrimeY;
+	        int32 x0 = x1 &- PrimeX;
+	        int32 y0 = y1 &- PrimeY;
+	        int32 x2 = x1 &+ PrimeX;
+	        int32 y2 = y1 &+ PrimeY;
+	        int32 x3 = x1 &+ (int32)((int64)PrimeX << 1);
+	        int32 y3 = y1 &+ (int32)((int64)PrimeY << 1);
 
 	        return CubicLerp(
 	            CubicLerp(ValCoord(seed, x0, y0), ValCoord(seed, x1, y0), ValCoord(seed, x2, y0), ValCoord(seed, x3, y0),
@@ -1843,19 +1843,19 @@ namespace FastNoiseLite
 	        float ys = (float)(y - y1);
 	        float zs = (float)(z - z1);
 
-	        x1 *= PrimeX;
-	        y1 *= PrimeY;
-	        z1 *= PrimeZ;
+	        x1 &*= PrimeX;
+	        y1 &*= PrimeY;
+	        z1 &*= PrimeZ;
 
-	        int32 x0 = x1 - PrimeX;
-	        int32 y0 = y1 - PrimeY;
-	        int32 z0 = z1 - PrimeZ;
-	        int32 x2 = x1 + PrimeX;
-	        int32 y2 = y1 + PrimeY;
-	        int32 z2 = z1 + PrimeZ;
-	        int32 x3 = x1 + (int32)((int64)PrimeX << 1);
-	        int32 y3 = y1 + (int32)((int64)PrimeY << 1);
-	        int32 z3 = z1 + (int32)((int64)PrimeZ << 1);
+	        int32 x0 = x1 &- PrimeX;
+	        int32 y0 = y1 &- PrimeY;
+	        int32 z0 = z1 &- PrimeZ;
+	        int32 x2 = x1 &+ PrimeX;
+	        int32 y2 = y1 &+ PrimeY;
+	        int32 z2 = z1 &+ PrimeZ;
+	        int32 x3 = x1 &+ (int32)((int64)PrimeX << 1);
+	        int32 y3 = y1 &+ (int32)((int64)PrimeY << 1);
+	        int32 z3 = z1 &+ (int32)((int64)PrimeZ << 1);
 
 
 	        return CubicLerp(
@@ -1897,10 +1897,10 @@ namespace FastNoiseLite
 	        float xs = InterpHermite((float)(x - x0));
 	        float ys = InterpHermite((float)(y - y0));
 
-	        x0 *= PrimeX;
-	        y0 *= PrimeY;
-	        int32 x1 = x0 + PrimeX;
-	        int32 y1 = y0 + PrimeY;
+	        x0 &*= PrimeX;
+	        y0 &*= PrimeY;
+	        int32 x1 = x0 &+ PrimeX;
+	        int32 y1 = y0 &+ PrimeY;
 
 	        float xf0 = Lerp(ValCoord(seed, x0, y0), ValCoord(seed, x1, y0), xs);
 	        float xf1 = Lerp(ValCoord(seed, x0, y1), ValCoord(seed, x1, y1), xs);
@@ -1918,12 +1918,12 @@ namespace FastNoiseLite
 	        float ys = InterpHermite((float)(y - y0));
 	        float zs = InterpHermite((float)(z - z0));
 
-	        x0 *= PrimeX;
-	        y0 *= PrimeY;
-	        z0 *= PrimeZ;
-	        int32 x1 = x0 + PrimeX;
-	        int32 y1 = y0 + PrimeY;
-	        int32 z1 = z0 + PrimeZ;
+	        x0 &*= PrimeX;
+	        y0 &*= PrimeY;
+	        z0 &*= PrimeZ;
+	        int32 x1 = x0 &+ PrimeX;
+	        int32 y1 = y0 &+ PrimeY;
+	        int32 z1 = z0 &+ PrimeZ;
 
 	        float xf00 = Lerp(ValCoord(seed, x0, y0, z0), ValCoord(seed, x1, y0, z0), xs);
 	        float xf10 = Lerp(ValCoord(seed, x0, y1, z0), ValCoord(seed, x1, y1, z0), xs);
@@ -2096,10 +2096,10 @@ namespace FastNoiseLite
 	        float xs = InterpHermite((float)(xf - x0));
 	        float ys = InterpHermite((float)(yf - y0));
 
-	        x0 *= PrimeX;
-	        y0 *= PrimeY;
-	        int32 x1 = x0 + PrimeX;
-	        int32 y1 = y0 + PrimeY;
+	        x0 &*= PrimeX;
+	        y0 &*= PrimeY;
+	        int32 x1 = x0 &+ PrimeX;
+	        int32 y1 = y0 &+ PrimeY;
 
 	        int32 hash0 = Hash(seed, x0, y0) & (255 << 1);
 	        int32 hash1 = Hash(seed, x1, y0) & (255 << 1);
@@ -2131,12 +2131,12 @@ namespace FastNoiseLite
 	        float ys = InterpHermite((float)(yf - y0));
 	        float zs = InterpHermite((float)(zf - z0));
 
-	        x0 *= PrimeX;
-	        y0 *= PrimeY;
-	        z0 *= PrimeZ;
-	        int32 x1 = x0 + PrimeX;
-	        int32 y1 = y0 + PrimeY;
-	        int32 z1 = z0 + PrimeZ;
+	        x0 &*= PrimeX;
+	        y0 &*= PrimeY;
+	        z0 &*= PrimeZ;
+	        int32 x1 = x0 &+ PrimeX;
+	        int32 y1 = y0 &+ PrimeY;
+	        int32 z1 = z0 &+ PrimeZ;
 
 	        int32 hash0 = Hash(seed, x0, y0, z0) & (255 << 2);
 	        int32 hash1 = Hash(seed, x1, y0, z0) & (255 << 2);
@@ -2202,8 +2202,8 @@ namespace FastNoiseLite
 	        float x0 = (float)(xi - t);
 	        float y0 = (float)(yi - t);
 
-	        i *= PrimeX;
-	        j *= PrimeY;
+	        i &*= PrimeX;
+	        j &*= PrimeY;
 
 	        float vx, vy;
 	        vx = vy = 0;
@@ -2229,9 +2229,9 @@ namespace FastNoiseLite
 	            float cccc = (c * c) * (c * c);
 	            float xo, yo;
 	            if (outGradOnly)
-	                GradCoordOut(seed, i + PrimeX, j + PrimeY, out xo, out yo);
+	                GradCoordOut(seed, i &+ PrimeX, j + PrimeY, out xo, out yo);
 	            else
-	                GradCoordDual(seed, i + PrimeX, j + PrimeY, x2, y2, out xo, out yo);
+	                GradCoordDual(seed, i &+ PrimeX, j + PrimeY, x2, y2, out xo, out yo);
 	            vx += cccc * xo;
 	            vy += cccc * yo;
 	        }
@@ -2263,9 +2263,9 @@ namespace FastNoiseLite
 	                float bbbb = (b * b) * (b * b);
 	                float xo, yo;
 	                if (outGradOnly)
-	                    GradCoordOut(seed, i + PrimeX, j, out xo, out yo);
+	                    GradCoordOut(seed, i &+ PrimeX, j, out xo, out yo);
 	                else
-	                    GradCoordDual(seed, i + PrimeX, j, x1, y1, out xo, out yo);
+	                    GradCoordDual(seed, i &+ PrimeX, j, x1, y1, out xo, out yo);
 	                vx += bbbb * xo;
 	                vy += bbbb * yo;
 	            }
@@ -2304,9 +2304,9 @@ namespace FastNoiseLite
 	        float ay0 = yNSign * -y0;
 	        float az0 = zNSign * -z0;
 
-	        i *= PrimeX;
-	        j *= PrimeY;
-	        k *= PrimeZ;
+	        i &*= PrimeX;
+	        j &*= PrimeY;
+	        k &*= PrimeZ;
 
 	        float vx, vy, vz;
 	        vx = vy = vz = 0;
@@ -2339,19 +2339,19 @@ namespace FastNoiseLite
 	            {
 	                x1 += xNSign;
 	                b = b + ax0 + ax0;
-	                i1 -= xNSign * PrimeX;
+	                i1 -= xNSign &* PrimeX;
 	            }
 	            else if (ay0 > ax0 && ay0 >= az0)
 	            {
 	                y1 += yNSign;
 	                b = b + ay0 + ay0;
-	                j1 -= yNSign * PrimeY;
+	                j1 -= yNSign &* PrimeY;
 	            }
 	            else
 	            {
 	                z1 += zNSign;
 	                b = b + az0 + az0;
-	                k1 -= zNSign * PrimeZ;
+	                k1 -= zNSign &* PrimeZ;
 	            }
 
 	            if (b > 1)
